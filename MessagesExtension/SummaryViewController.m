@@ -27,14 +27,15 @@
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //get game state and hide/unhide buttons
-    if([self.delegate isGameOver]){
+    GameState state = [self.delegate getGameState];
+    if(state == GameStateInProgress){
+        self.titleLabel.text = @"Let's continue!";
+        self.continueButton.hidden = NO;
+        self.startGameButton.hidden = YES;
+    } else {
         self.titleLabel.text = @"Start New Game!";
         self.continueButton.hidden = YES;
         self.startGameButton.hidden = NO;
-    } else {
-        self.titleLabel.text = @"Continue!";
-        self.continueButton.hidden = NO;
-        self.startGameButton.hidden = YES;
     }
 }
 
@@ -55,5 +56,12 @@
 
 - (IBAction)continueGame:(id)sender {
     [self.delegate continueGame];
+}
+- (IBAction)sendAttachment:(id)sender {
+    [self.delegate sendAttachment];
+}
+
+- (IBAction)sendVideo:(id)sender {
+    [self.delegate sendVideo];
 }
 @end

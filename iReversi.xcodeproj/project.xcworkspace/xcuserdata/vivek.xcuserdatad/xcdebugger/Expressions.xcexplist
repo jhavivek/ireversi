@@ -8,6 +8,9 @@
             <PersistentString
                value = "self.activeConversation">
             </PersistentString>
+            <PersistentString
+               value = "[self.activeConversation.localParticipantIdentifier isEqual:self.currentGame.whitePlayerId]">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState

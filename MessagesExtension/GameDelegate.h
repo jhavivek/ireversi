@@ -23,4 +23,8 @@
 -(BOOL) isGameOver;
 -(void) startNewGame;
 -(void) continueGame;
+-(GameState) getGameState;
+//For testing
+-(void) sendAttachment;
+-(void) sendVideo;
 @end

@@ -206,10 +206,12 @@
 				TargetAttributes = {
 					E2AAC0DD1D8DDE8E00A918B4 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 6B3N73X9SX;
 						ProvisioningStyle = Automatic;
 					};
 					E2AAC0E71D8DDE8E00A918B4 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 6B3N73X9SX;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -312,6 +314,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6B3N73X9SX;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -359,6 +362,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6B3N73X9SX;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -443,6 +447,7 @@
 				E2AAC0FD1D8DDE8E00A918B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E2AAC0FF1D8DDE8E00A918B4 /* Build configuration list for PBXNativeTarget "iReversi" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +456,7 @@
 				E2AAC1011D8DDE8E00A918B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

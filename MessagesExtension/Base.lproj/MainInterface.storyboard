@@ -132,7 +132,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="EE3-hS-d5v"/>
                                 </constraints>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Play">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -144,12 +144,46 @@
                                     <action selector="startNewGame:" destination="H94-aN-Opi" eventType="touchUpInside" id="GuG-hr-d65"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9w-4e-rJe" userLabel="attach">
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="obf-Ja-31F"/>
+                                </constraints>
+                                <state key="normal" title="Attachment">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sendAttachment:" destination="H94-aN-Opi" eventType="touchUpInside" id="7jI-2c-yPG"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHk-Fv-9WL" userLabel="video">
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="he4-l6-cGY"/>
+                                </constraints>
+                                <state key="normal" title="Video">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sendVideo:" destination="H94-aN-Opi" eventType="touchUpInside" id="2LD-sy-4R5"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sk2-Fp-Miu" userLabel="continueBtn">
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="kWD-Sp-aUC"/>
                                 </constraints>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Continue">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -166,11 +200,15 @@
                         <constraints>
                             <constraint firstItem="sk2-Fp-Miu" firstAttribute="centerX" secondItem="Ifp-Ul-IIi" secondAttribute="centerX" id="Blq-6f-CAK"/>
                             <constraint firstItem="74F-J5-NPG" firstAttribute="centerX" secondItem="0VV-oc-UKS" secondAttribute="centerXWithinMargins" id="Cdm-7M-Hp1"/>
+                            <constraint firstItem="NHk-Fv-9WL" firstAttribute="centerY" secondItem="sk2-Fp-Miu" secondAttribute="centerY" id="Pzv-JE-bhd"/>
                             <constraint firstItem="sk2-Fp-Miu" firstAttribute="height" secondItem="Ifp-Ul-IIi" secondAttribute="height" id="TUP-hg-mw4"/>
                             <constraint firstItem="74F-J5-NPG" firstAttribute="top" secondItem="zU8-6w-Y1G" secondAttribute="bottom" constant="10" id="V7I-rX-Odm"/>
                             <constraint firstItem="Ifp-Ul-IIi" firstAttribute="top" secondItem="74F-J5-NPG" secondAttribute="bottom" constant="10" id="aak-tk-jxK"/>
+                            <constraint firstItem="H9w-4e-rJe" firstAttribute="centerY" secondItem="sk2-Fp-Miu" secondAttribute="centerY" id="c8r-0K-kqk"/>
+                            <constraint firstItem="sk2-Fp-Miu" firstAttribute="trailing" secondItem="H9w-4e-rJe" secondAttribute="leading" constant="-10" id="jwa-s5-giL"/>
                             <constraint firstItem="Ifp-Ul-IIi" firstAttribute="centerX" secondItem="0VV-oc-UKS" secondAttribute="centerXWithinMargins" id="lie-OF-D92"/>
                             <constraint firstItem="sk2-Fp-Miu" firstAttribute="width" secondItem="Ifp-Ul-IIi" secondAttribute="width" id="qxz-oA-tDc"/>
+                            <constraint firstItem="sk2-Fp-Miu" firstAttribute="leading" secondItem="NHk-Fv-9WL" secondAttribute="trailing" constant="10" id="uim-Rx-UQd"/>
                             <constraint firstItem="sk2-Fp-Miu" firstAttribute="centerY" secondItem="Ifp-Ul-IIi" secondAttribute="centerY" id="yLN-oK-M6T"/>
                         </constraints>
                     </view>

@@ -164,9 +164,9 @@ MSSession * session;
     UIImage *img = [UIImage imageNamed:@"Board-Image"];
     if(self.currentGame.currentState == GameStateComplete){
         messageLayout.caption = @"Game Over!";
-    } else if([self isPlayerTurn]){//TODO: This check needs better handling
+    }/* else if([self isPlayerTurn]){//TODO: This check needs better handling
         messageLayout.caption = @"No Possible Move. Opponent's turn";
-    } else {
+    }*/ else {
         messageLayout.caption = @"It's your turn now!";
     }
     
@@ -230,6 +230,10 @@ MSSession * session;
     self.currentGame.currentState = state;
 }
 
+-(GameState) getGameState{
+    return self.currentGame.currentState;
+}
+
 //TODO: implement properly
 -(BOOL) isPlayerTurn{
     switch(self.currentGame.currentState){
@@ -239,9 +243,9 @@ MSSession * session;
             return NO;
         case GameStateInProgress:
             //XOR condition
-            /*if([self.activeConversation.localParticipantIdentifier isEqual:self.currentGame.whitePlayerId] != (self.currentGame.currentPlayer == CellStateBlack)){
-                return YES;
-            }*/
+            if([self.activeConversation.localParticipantIdentifier isEqual:self.currentGame.whitePlayerId] != (self.currentGame.currentPlayer == CellStateBlack)){
+                return NO;
+            }
             return YES;
     }
     return NO;
@@ -278,6 +282,35 @@ MSSession * session;
         [self.activeConversation insertText:@"Hey, It's your turn. Don't keep me waiting." completionHandler:nil];
     }
 
+}
+
+-(void) sendAttachment{
+    NSString *docPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/iosbutton.mov"];
+    NSURL *url = [NSURL fileURLWithPath:docPath];
+    
+    [self.activeConversation insertAttachment:url withAlternateFilename:@"Button.mov" completionHandler:nil];
+}
+
+-(void) sendVideo{
+    NSString *docPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/iosbutton.mov"];
+    NSURL *url = [NSURL fileURLWithPath:docPath];
+    
+    MSMessage *message = [MSMessage new];
+    
+    NSURLComponents * components = [NSURLComponents new];
+    
+    MSMessageTemplateLayout * messageLayout = [MSMessageTemplateLayout new];
+    
+    messageLayout.caption = @"Play Video!";
+    
+    //Trying video
+    messageLayout.mediaFileURL = url;
+    
+    message.layout = messageLayout;
+    message.URL = [components URL];
+
+    [self.activeConversation insertMessage:message completionHandler:nil];
+    
 }
 
 @end

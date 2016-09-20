@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *continueButton;
 @property (weak, nonatomic) IBOutlet UIButton *startGameButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+- (IBAction)sendAttachment:(id)sender;
+- (IBAction)sendVideo:(id)sender;
 
 
 
