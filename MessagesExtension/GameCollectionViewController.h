@@ -14,6 +14,7 @@
 //GameDelegate
 @property (weak, nonatomic) id delegate;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *boardBGImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
 
 

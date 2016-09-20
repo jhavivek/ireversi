@@ -111,6 +111,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
+                        <outlet property="boardBGImageView" destination="BQk-UK-FIj" id="lC3-vp-Mdg"/>
                         <outlet property="collectionView" destination="AQr-hr-quo" id="CV0-ob-HHL"/>
                         <outlet property="heightConstraint" destination="VjL-qK-tOp" id="gMf-YY-jUl"/>
                     </connections>
