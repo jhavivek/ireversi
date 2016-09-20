@@ -43,6 +43,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Board-bg" translatesAutoresizingMaskIntoConstraints="NO" id="BQk-UK-FIj">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BQk-UK-FIj" secondAttribute="height" multiplier="1:1" id="t4H-Hy-j2f"/>
+                                </constraints>
+                            </imageView>
                             <collectionView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AQr-hr-quo">
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -97,6 +102,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="BQk-UK-FIj" firstAttribute="centerX" secondItem="AQr-hr-quo" secondAttribute="centerX" constant="1" id="G0d-HI-Wuh"/>
+                            <constraint firstItem="BQk-UK-FIj" firstAttribute="centerY" secondItem="AQr-hr-quo" secondAttribute="centerY" constant="1" id="KrS-AB-DqP"/>
+                            <constraint firstItem="BQk-UK-FIj" firstAttribute="width" secondItem="AQr-hr-quo" secondAttribute="width" constant="32" id="j4Z-B3-Jyt"/>
                             <constraint firstItem="AQr-hr-quo" firstAttribute="centerX" secondItem="KjB-f3-dyG" secondAttribute="centerXWithinMargins" id="tcJ-ye-3qw"/>
                             <constraint firstItem="AQr-hr-quo" firstAttribute="centerY" secondItem="KjB-f3-dyG" secondAttribute="centerYWithinMargins" id="y55-rm-ltH"/>
                         </constraints>
@@ -224,6 +232,9 @@
             <point key="canvasLocation" x="507" y="108"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Board-bg" width="33" height="33"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

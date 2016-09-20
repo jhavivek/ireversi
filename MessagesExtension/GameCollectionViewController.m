@@ -23,21 +23,29 @@ UIImage * screenshot;
 //TODO: Handle screenwidth based logic - later
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //TODO: Fix this code - Really bad and I hate it
+    
+    CGSize size = [UIScreen mainScreen].bounds.size;
+    float screenDimension = size.width;
+    if(size.height < screenDimension){
+        screenDimension = size.height;
+    }
+    screenDimension = screenDimension - 50; //32 is required for border rest just padding
+    int cellSize = (screenDimension - 35)/8;
+    
     UICollectionViewFlowLayout *flow = (UICollectionViewFlowLayout*) self.collectionView.collectionViewLayout;
     flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    flow.itemSize = CGSizeMake(35.0, 35.0);
+    flow.itemSize = CGSizeMake(cellSize, cellSize);
     flow.minimumInteritemSpacing = 5.0;
-    flow.footerReferenceSize = CGSizeMake(320.0, 2.5);
-    flow.headerReferenceSize = CGSizeMake(320.0, 2.5);
+    flow.footerReferenceSize = CGSizeMake(screenDimension, 2.5);
+    flow.headerReferenceSize = CGSizeMake(screenDimension, 2.5);
     flow.scrollDirection = UICollectionViewScrollDirectionVertical;
     self.collectionView.scrollEnabled = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    [self.collectionView setContentInset:UIEdgeInsetsMake(-87, 0, 0, 0)];//can anyone explain 87
+    //[self.collectionView setContentInset:UIEdgeInsetsMake(-87, 0, 0, 0)];//can anyone explain 87
+    [self.collectionView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];//can anyone explain 87
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    //Bad code end
-    //UIScreen.mainScreen().bounds.size.width - 6
+    self.heightConstraint.constant = screenDimension;
 }
 
 - (void)didReceiveMemoryWarning {
