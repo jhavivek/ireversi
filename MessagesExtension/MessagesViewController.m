@@ -7,6 +7,9 @@
 //
 
 #import "MessagesViewController.h"
+#import "Game.h"
+#import "GameCollectionViewController.h"
+#import "SummaryViewController.h"
 
 
 @interface MessagesViewController ()
@@ -14,6 +17,8 @@
 @end
 
 @implementation MessagesViewController
+
+MSSession * session;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,16 +66,218 @@
     // Use this to clean up state related to the deleted message.
 }
 
+-(void) willBecomeActiveWithConversation:(MSConversation *)conversation{
+    [self setGameFromMessage:conversation.selectedMessage andConversation:conversation];
+    [self presentViewController:conversation withPresentationStyle:self.presentationStyle];
+}
+
+-(void) willSelectMessage:(MSMessage *)message conversation:(MSConversation *)conversation{
+    if(message.URL){
+        [self setGameFromMessage:message andConversation:self.activeConversation];
+    }
+}
+
 -(void)willTransitionToPresentationStyle:(MSMessagesAppPresentationStyle)presentationStyle {
     // Called before the extension transitions to a new presentation style.
-    
     // Use this method to prepare for the change in presentation style.
+    [self presentViewController:self.activeConversation withPresentationStyle:presentationStyle];
 }
 
 -(void)didTransitionToPresentationStyle:(MSMessagesAppPresentationStyle)presentationStyle {
     // Called after the extension transitions to a new presentation style.
     
     // Use this method to finalize any behaviors associated with the change in presentation style.
+}
+
+#pragma mark - ViewControllers handling
+
+-(void) presentViewController:(MSConversation *) conversation withPresentationStyle: (MSMessagesAppPresentationStyle) presentationStyle{
+    // Determine the controller to present.
+    UIViewController *presentedVC;
+    //= [UIViewController new];
+    if (presentationStyle == MSMessagesAppPresentationStyleCompact) {
+        // Show a list of previously created ice creams.
+        presentedVC = [self instantiateSummaryVC];
+    }
+    else {
+        /*
+         Parse an `Game Object` from the conversation's `selectedMessage` or
+         create a new `Game Object` if there isn't one associated with the message.
+         */
+        presentedVC = [self instantiateGameVC];
+    }
+    
+    // Remove any existing child controllers.
+    for(UIViewController *child in self.childViewControllers){
+        [child willMoveToParentViewController:nil];
+        [child.view removeFromSuperview];
+        [child removeFromParentViewController];
+    }
+    
+    // Embed the new controller.
+    [self addChildViewController:presentedVC];
+    
+    presentedVC.view.frame = self.view.bounds;
+    presentedVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:presentedVC.view];
+    
+    NSLayoutConstraint * leftConstraint = [presentedVC.view.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:0.0];
+    NSLayoutConstraint * rightConstraint = [presentedVC.view.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:0.0];
+    NSLayoutConstraint * topConstraint = [presentedVC.view.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:0.0];
+    NSLayoutConstraint * bottomConstraint = [presentedVC.view.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:0.0];
+    
+    NSArray <NSLayoutConstraint *> *constraints = @[leftConstraint, rightConstraint, topConstraint, bottomConstraint];
+    //I think we need to add constraints first
+    [self.view addConstraints:constraints];
+    [NSLayoutConstraint activateConstraints:constraints];
+    
+    [presentedVC didMoveToParentViewController:self];
+    
+}
+
+//TODO: Implement these properly later - we may need delegates
+-(UIViewController *) instantiateSummaryVC {
+    SummaryViewController *summaryVc =  [self.storyboard instantiateViewControllerWithIdentifier:@"summaryVC"];
+    summaryVc.delegate = self;
+    return summaryVc;
+}
+
+-(UIViewController *) instantiateGameVC {
+    GameCollectionViewController *gameVc = [self.storyboard instantiateViewControllerWithIdentifier:@"gameCollectionVC"];
+    gameVc.delegate = self;
+    return gameVc;
+}
+
+#pragma mark - Message Creation
+
+-(MSMessage *) getMessage:(UIImage *)shareableImage{
+    if(!session){
+        session = [MSSession new];
+    }
+    
+    MSMessage *message = [[MSMessage alloc] initWithSession:session];
+    
+    NSURLComponents * components = [NSURLComponents new];
+    components.queryItems = [self.currentGame getQueryItems];
+    
+    MSMessageTemplateLayout * messageLayout = [MSMessageTemplateLayout new];
+    UIImage *img = [UIImage imageNamed:@"Board-Image"];
+    if(self.currentGame.currentState == GameStateComplete){
+        messageLayout.caption = @"Game Over!";
+    } else if([self isPlayerTurn]){//TODO: This check needs better handling
+        messageLayout.caption = @"No Possible Move. Opponent's turn";
+    } else {
+        messageLayout.caption = @"It's your turn now!";
+    }
+    
+    messageLayout.subcaption = [NSString stringWithFormat:@"White:%ld", self.currentGame.whiteScore];
+    messageLayout.trailingSubcaption = [NSString stringWithFormat:@"Black:%ld", self.currentGame.blackScore];
+    
+    if(shareableImage){
+        messageLayout.image = shareableImage;
+    } else {
+        messageLayout.image = img;
+    }
+    
+    message.layout = messageLayout;
+    message.URL = [components URL];
+    
+    return message;
+}
+
+//only call for recieved messages --- Maybe this should contain ref of game
+//May need to reset this too at start
+-(void) setGameFromMessage:(MSMessage *)message andConversation:(MSConversation *)conversation{
+    Game * game = [Game new];
+    [game clearBoard];
+    if(message){
+        NSURLComponents *components = [NSURLComponents componentsWithURL:message.URL resolvingAgainstBaseURL:NO];
+        [game setWithQueryItems:components.queryItems];
+        session = message.session;
+    } else {
+        game.currentState = GameStateInit;
+        game.currentPlayer = CellStateWhite;
+        game.whitePlayerId = conversation.localParticipantIdentifier;
+    }
+    
+    [game recalculateScore];
+    
+    self.currentGame = game;
+}
+
+#pragma mark - Game Delegate
+-(CellState) getPlayerState{
+    return self.currentGame.currentPlayer;
+}
+
+-(void) recalculateScore{
+    [self.currentGame recalculateScore];
+}
+
+-(void) notifyUpdateFor:(NSIndexPath *) indexPath andState:(CellState) state{
+    [self.currentGame setBoardValueFor:indexPath withState:state];
+}
+
+-(CellState) getStateFor:(NSIndexPath *) indexPath{
+    return [self.currentGame getBoardValueFor:indexPath];
+}
+
+-(void) setPlayerState:(CellState) state{
+    self.currentGame.currentPlayer = state;
+}
+
+-(void) setGameState:(GameState) state{
+    self.currentGame.currentState = state;
+}
+
+//TODO: implement properly
+-(BOOL) isPlayerTurn{
+    switch(self.currentGame.currentState){
+        case GameStateInit:
+            return self.currentGame.currentPlayer == CellStateWhite;
+        case GameStateComplete:
+            return NO;
+        case GameStateInProgress:
+            //XOR condition
+            /*if([self.activeConversation.localParticipantIdentifier isEqual:self.currentGame.whitePlayerId] != (self.currentGame.currentPlayer == CellStateBlack)){
+                return YES;
+            }*/
+            return YES;
+    }
+    return NO;
+}
+
+-(BOOL) isGameOver{
+    return self.currentGame.currentState == GameStateComplete;
+}
+
+-(ResultState) getMatchStateForPlayer{
+    if(self.currentGame.whiteScore == self.currentGame.blackScore)
+        return ResultStateTie;
+    else if((self.currentGame.whiteScore > self.currentGame.blackScore) == [self.activeConversation.localParticipantIdentifier isEqual:self.currentGame.whitePlayerId])
+        return ResultStateWin;
+    return ResultStateLoss;
+}
+
+-(void) startSharingGame:(UIImage *)shareableImage{
+    MSMessage * message = [self getMessage: shareableImage];
+    [self.activeConversation insertMessage:message completionHandler:nil];
+    //To share
+    [self requestPresentationStyle:MSMessagesAppPresentationStyleCompact];
+}
+
+-(void) startNewGame{
+    [self setGameFromMessage:nil andConversation:self.activeConversation];
+    [self requestPresentationStyle:MSMessagesAppPresentationStyleExpanded];
+}
+-(void) continueGame{
+    if([self isPlayerTurn]){
+        [self requestPresentationStyle:MSMessagesAppPresentationStyleExpanded];
+    } else {
+        //send a text reminder
+        [self.activeConversation insertText:@"Hey, It's your turn. Don't keep me waiting." completionHandler:nil];
+    }
+
 }
 
 @end

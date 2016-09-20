@@ -7,7 +7,11 @@
 //
 
 #import <Messages/Messages.h>
+#import "Game.h"
+#import "GameDelegate.h"
 
-@interface MessagesViewController : MSMessagesAppViewController
+@interface MessagesViewController : MSMessagesAppViewController <GameDelegate>
+
+@property Game * currentGame;
 
 @end
