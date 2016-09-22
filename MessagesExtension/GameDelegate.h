@@ -27,4 +27,5 @@
 //For testing
 -(void) sendAttachment;
 -(void) sendVideo;
+-(UIImage *) getImageFromMessage;
 @end

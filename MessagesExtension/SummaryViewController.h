@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 - (IBAction)sendAttachment:(id)sender;
 - (IBAction)sendVideo:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *gameView;
 
 
 

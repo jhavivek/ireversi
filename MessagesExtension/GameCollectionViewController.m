@@ -335,12 +335,9 @@ UIImage * screenshot;
 
 #pragma mark - Screenshot
 -(void) getScreenshot{
-    CGRect rect = [self.boardBGImageView bounds];
+    CGRect rect = [self.mainView bounds];
     UIGraphicsBeginImageContextWithOptions(rect.size,YES,0.0f);
-    //CGContextRef context = UIGraphicsGetCurrentContext();
-    //[self.collectionView.layer renderInContext:context];
-    [self.view drawViewHierarchyInRect:rect afterScreenUpdates:YES];
-    //[self.collectionView drawViewHierarchyInRect:rect afterScreenUpdates:YES];
+    [self.mainView drawViewHierarchyInRect:rect afterScreenUpdates:YES];
     UIImage *capturedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     screenshot = capturedImage;

@@ -19,6 +19,7 @@
 @implementation MessagesViewController
 
 MSSession * session;
+UIImage *lastImage;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -191,6 +192,7 @@ MSSession * session;
     Game * game = [Game new];
     [game clearBoard];
     if(message){
+        //lastImage = ((MSMessageTemplateLayout*)message.layout).image;
         NSURLComponents *components = [NSURLComponents componentsWithURL:message.URL resolvingAgainstBaseURL:NO];
         [game setWithQueryItems:components.queryItems];
         session = message.session;
@@ -243,10 +245,10 @@ MSSession * session;
             return NO;
         case GameStateInProgress:
             //XOR condition
-            if([self.activeConversation.localParticipantIdentifier isEqual:self.currentGame.whitePlayerId] != (self.currentGame.currentPlayer == CellStateBlack)){
-                return NO;
+            if([self.activeConversation.localParticipantIdentifier isEqual:self.currentGame.whitePlayerId] == (self.currentGame.currentPlayer == CellStateWhite)){
+                return YES;
             }
-            return YES;
+            return NO;
     }
     return NO;
 }
@@ -264,6 +266,7 @@ MSSession * session;
 }
 
 -(void) startSharingGame:(UIImage *)shareableImage{
+    lastImage = shareableImage;
     MSMessage * message = [self getMessage: shareableImage];
     [self.activeConversation insertMessage:message completionHandler:nil];
     //To share
@@ -282,6 +285,10 @@ MSSession * session;
         [self.activeConversation insertText:@"Hey, It's your turn. Don't keep me waiting." completionHandler:nil];
     }
 
+}
+
+-(UIImage *) getImageFromMessage{
+        return lastImage;
 }
 
 -(void) sendAttachment{

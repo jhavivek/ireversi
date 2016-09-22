@@ -32,6 +32,7 @@
         self.titleLabel.text = @"Let's continue!";
         self.continueButton.hidden = NO;
         self.startGameButton.hidden = YES;
+        self.gameView.image = [self.delegate getImageFromMessage];
     } else {
         self.titleLabel.text = @"Start New Game!";
         self.continueButton.hidden = YES;
