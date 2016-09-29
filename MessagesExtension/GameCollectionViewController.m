@@ -20,6 +20,7 @@ static NSString * const reuseIdentifier = @"gameCell";
 static NSInteger const boardSize = 8; /// need to declare as extern game also uses this
 
 UIImage * screenshot;
+
 //TODO: Handle screenwidth based logic - later
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,10 +43,13 @@ UIImage * screenshot;
     self.collectionView.scrollEnabled = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     //[self.collectionView setContentInset:UIEdgeInsetsMake(-87, 0, 0, 0)];//can anyone explain 87
-    [self.collectionView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];//can anyone explain 87
+    [self.collectionView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.heightConstraint.constant = screenDimension;
+    
+    [self updateImage:self.turnImage withState:_turnState];
+    [self updateImage:self.playerImage withState:_playerState];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -153,6 +157,30 @@ UIImage * screenshot;
 	
  }
  */
+#pragma mark - Player and turn images
+-(void) updateTurnState:(CellState) state{
+    _turnState = state;
+    [self updateImage:self.turnImage withState:state];
+}
+
+-(void) updatePlayerState:(CellState) state{
+    _playerState = state;
+    [self updateImage:self.playerImage withState:state];
+}
+
+-(void) updateImage:(UIImageView *) imgView withState:(CellState) state{
+    switch(state){
+        case CellStateWhite:
+            imgView.image = [UIImage imageNamed:@"White-tile"];
+            break;
+        case CellStateBlack:
+            imgView.image = [UIImage imageNamed:@"Black-tile"];
+            break;
+        case CellStateNone:
+            imgView.image = nil;
+            break;
+    }
+}
 
 #pragma mark Move Logic
 //disable after one tap
@@ -195,6 +223,8 @@ UIImage * screenshot;
         if([self isMovePossibleFor:opponentState]){
             //3.a Break if possible
             //I hate runtime errors :(
+            [self updateTurnState:opponentState];
+            
             [self.delegate setPlayerState:opponentState];
             [self.delegate startSharingGame:screenshot];
             return;

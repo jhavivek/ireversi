@@ -146,6 +146,8 @@ UIImage *lastImage;
 -(UIViewController *) instantiateGameVC {
     GameCollectionViewController *gameVc = [self.storyboard instantiateViewControllerWithIdentifier:@"gameCollectionVC"];
     gameVc.delegate = self;
+    [gameVc updateTurnState:[self getPlayerState]];
+    [gameVc updatePlayerState:[self getCurrentPlayerState]];
     return gameVc;
 }
 
@@ -208,6 +210,7 @@ UIImage *lastImage;
 }
 
 #pragma mark - Game Delegate
+//TODO:misnomer - name it better
 -(CellState) getPlayerState{
     return self.currentGame.currentPlayer;
 }
@@ -251,6 +254,15 @@ UIImage *lastImage;
             return NO;
     }
     return NO;
+}
+
+-(CellState) getCurrentPlayerState{
+    if([self.activeConversation.localParticipantIdentifier isEqual:self.currentGame.whitePlayerId])
+        return CellStateWhite;
+    else if (self.currentGame.currentState == GameStateInit)
+        return CellStateWhite;
+    else
+        return CellStateBlack;
 }
 
 -(BOOL) isGameOver{

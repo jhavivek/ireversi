@@ -17,6 +17,14 @@
 @property (weak, nonatomic) IBOutlet UIImageView *boardBGImageView;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *turnImage;
+@property (weak, nonatomic) IBOutlet UIImageView *playerImage;
+
+@property  CellState turnState;
+@property  CellState playerState;
+
+-(void) updateTurnState:(CellState) state;
+-(void) updatePlayerState:(CellState) state;
 
 
 @end

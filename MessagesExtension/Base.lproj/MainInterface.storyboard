@@ -113,10 +113,59 @@
                                     <constraint firstItem="AQr-hr-quo" firstAttribute="centerX" secondItem="wqh-De-8yp" secondAttribute="centerXWithinMargins" constant="-1" id="uAF-QH-NAT"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sPc-xp-3zO">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turn :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQh-pw-JkF">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="4tB-sz-90T"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xcz-Qz-Biz">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="vnw-4l-WKn"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVS-K5-ITg">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="kAY-5O-V2o"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Fs-wD-bfw">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="iQV-8S-ehg"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="4Fs-wD-bfw" firstAttribute="centerY" secondItem="sPc-xp-3zO" secondAttribute="centerY" id="22c-9I-gXt"/>
+                                    <constraint firstItem="4Fs-wD-bfw" firstAttribute="leading" secondItem="gVS-K5-ITg" secondAttribute="trailing" constant="4" id="5tI-XC-rsj"/>
+                                    <constraint firstItem="gVS-K5-ITg" firstAttribute="height" secondItem="nQh-pw-JkF" secondAttribute="height" id="BBm-sJ-6s5"/>
+                                    <constraint firstItem="xcz-Qz-Biz" firstAttribute="leading" secondItem="nQh-pw-JkF" secondAttribute="trailing" constant="4" id="EFw-fx-MCU"/>
+                                    <constraint firstItem="nQh-pw-JkF" firstAttribute="height" secondItem="sPc-xp-3zO" secondAttribute="height" id="JFb-DT-aKJ"/>
+                                    <constraint firstAttribute="height" constant="30" id="Jgt-RO-SC3"/>
+                                    <constraint firstItem="nQh-pw-JkF" firstAttribute="centerY" secondItem="sPc-xp-3zO" secondAttribute="centerYWithinMargins" id="V0o-zt-uWS"/>
+                                    <constraint firstItem="xcz-Qz-Biz" firstAttribute="height" secondItem="sPc-xp-3zO" secondAttribute="height" id="YLv-Om-j9E"/>
+                                    <constraint firstAttribute="trailing" secondItem="4Fs-wD-bfw" secondAttribute="trailing" constant="32" id="dn7-VT-uai"/>
+                                    <constraint firstItem="4Fs-wD-bfw" firstAttribute="height" secondItem="sPc-xp-3zO" secondAttribute="height" id="pQZ-2z-Jf6"/>
+                                    <constraint firstItem="gVS-K5-ITg" firstAttribute="centerY" secondItem="nQh-pw-JkF" secondAttribute="centerY" id="sCH-nN-eIw"/>
+                                    <constraint firstItem="xcz-Qz-Biz" firstAttribute="centerY" secondItem="sPc-xp-3zO" secondAttribute="centerY" id="xpz-YG-U9E"/>
+                                    <constraint firstItem="nQh-pw-JkF" firstAttribute="leading" secondItem="sPc-xp-3zO" secondAttribute="leading" constant="32" id="yNx-95-Lbk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wqh-De-8yp" firstAttribute="centerX" secondItem="KjB-f3-dyG" secondAttribute="centerXWithinMargins" id="Net-kQ-tyC"/>
+                            <constraint firstItem="sPc-xp-3zO" firstAttribute="width" secondItem="KjB-f3-dyG" secondAttribute="width" id="PjD-y0-q6I"/>
+                            <constraint firstItem="sPc-xp-3zO" firstAttribute="centerX" secondItem="KjB-f3-dyG" secondAttribute="centerXWithinMargins" id="Vna-VT-047"/>
+                            <constraint firstItem="wqh-De-8yp" firstAttribute="top" secondItem="sPc-xp-3zO" secondAttribute="bottom" constant="20" id="Vvb-eN-XYa"/>
                             <constraint firstItem="wqh-De-8yp" firstAttribute="centerY" secondItem="KjB-f3-dyG" secondAttribute="centerYWithinMargins" id="r0y-ci-erV"/>
                         </constraints>
                     </view>
@@ -126,6 +175,8 @@
                         <outlet property="collectionView" destination="AQr-hr-quo" id="CV0-ob-HHL"/>
                         <outlet property="heightConstraint" destination="VjL-qK-tOp" id="gMf-YY-jUl"/>
                         <outlet property="mainView" destination="wqh-De-8yp" id="zXy-Lw-EbW"/>
+                        <outlet property="playerImage" destination="4Fs-wD-bfw" id="9pO-bK-gRp"/>
+                        <outlet property="turnImage" destination="xcz-Qz-Biz" id="jmX-Cy-9jG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YPk-nz-WTb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -216,7 +267,7 @@
                                     <action selector="continueGame:" destination="H94-aN-Opi" eventType="touchUpInside" id="Lst-Hw-YZ8"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vP5-xh-aJj">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vP5-xh-aJj">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="9AX-Yu-jzv"/>
                                     <constraint firstAttribute="width" constant="200" id="nGV-r8-Xz5"/>
